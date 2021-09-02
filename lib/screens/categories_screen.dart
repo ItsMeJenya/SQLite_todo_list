@@ -78,7 +78,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   _category.description = _categoryDescriptionController.text;
 
                   var result = await _categoryService.saveCategory(_category);
-                  //getAllCategories();
+                  getAllCategories();
                   print(result);
                   Navigator.pop(context);
                 },
