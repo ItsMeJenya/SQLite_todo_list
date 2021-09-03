@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sql_todolist_1/screens/categories_screen.dart';
 import 'package:sql_todolist_1/screens/home_screen.dart';
+import 'package:sql_todolist_1/screens/todos_by_category.dart';
 import 'package:sql_todolist_1/services/category_service.dart';
 
 class DrawerNavigation extends StatefulWidget {
@@ -18,19 +19,27 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
       (category) {
         setState(
           () {
-            _categoryList.add(ListTile(
-              title: Text(category['name']),
+            _categoryList.add(InkWell(
+              onTap: () => Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new TodosByCategory(category['name']))),
+              child: ListTile(
+                title: Text(category['name']),
+              ),
             ));
           },
         );
       },
     );
   }
+
   @override
   void initState() {
     super.initState();
     getAllCategories();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,9 +65,7 @@ class _DrawerNavigationState extends State<DrawerNavigation> {
             ),
             Divider(),
             Column(
-              children:
-                _categoryList
-              ,
+              children: _categoryList,
             )
           ],
         ),

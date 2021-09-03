@@ -42,9 +42,16 @@ class Repository {
     return await connection
         .update(table, data, where: 'id=?', whereArgs: [data['id']]);
   }
+
 //delete data from table by id
-  deleteData(table, itemId)async {
+  deleteData(table, itemId) async {
     var connection = await database;
-    return await connection.rawDelete("DELETE FROM $table WHERE id = $itemId" );
+    return await connection.rawDelete("DELETE FROM $table WHERE id = $itemId");
+  }
+
+  //read data from table by column Name
+  readDataByColumnName(table, columnName, columnValue) async {
+    var connection = await database;
+    return await connection.query(table, where: '$columnName=?', whereArgs: [columnValue]);
   }
 }
